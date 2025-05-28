@@ -1,6 +1,7 @@
 import express from "express";
 import { Request, Response } from "express";
 import { getItems, createItem } from '../services/itemService';
+import { ValidationError } from '../errors/ValidationError';
 
 const router = express.Router();
 
@@ -20,8 +21,12 @@ router.post("/items", async (req: Request, res: Response) => {
         const { name } = req.body;
         const item = createItem(name); // Create a new item and add it to the store
         res.status(201).json(item); // Return the item
-    } catch (error) {
-        res.status(500).json({ error: "Failed to create item" }); // Return an error if the item cannot be created
+    } catch (error: any) {
+        if (error instanceof ValidationError) {
+            res.status(400).json({ error: error.message });
+        } else {
+            res.status(500).json({ error: "Failed to create item" }); // Generic error for other cases
+        }
     }
 });
 
