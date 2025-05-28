@@ -8,7 +8,7 @@ import { ValidationError } from "../errors/ValidationError";
 export const getItems = (): Item[] => {
     try {
         return store.getAllItems(); // Get all items from the store
-    } catch (error: any) {
+    } catch (error: unknown) {
         throw new Error('Failed to fetch items'); // Throw an error if the items cannot be fetched
     }
 };
@@ -18,7 +18,7 @@ export const createItem = (name: string): Item => {
     try {
         const validatedName = validateItemName(name); // Validate the name of the item
         return store.addItem(validatedName); // Add the item to the store
-    } catch (error: any) {
+    } catch (error: unknown) {
         if (error instanceof ValidationError) {
             throw error; // Forward validation error
         }

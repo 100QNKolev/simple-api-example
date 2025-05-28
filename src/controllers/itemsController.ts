@@ -21,7 +21,7 @@ router.post("/items", async (req: Request, res: Response) => {
         const { name } = req.body;
         const item = createItem(name); // Create a new item and add it to the store
         res.status(201).json(item); // Return the item
-    } catch (error: any) {
+    } catch (error: unknown) {
         if (error instanceof ValidationError) {
             res.status(400).json({ error: error.message });
         } else {
