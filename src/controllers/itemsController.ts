@@ -17,7 +17,7 @@ router.get("/items", async (req: Request, res: Response) => {
 // Create a new item and add it to the store
 router.post("/items", async (req: Request, res: Response) => {
     try {
-        const { name } = req.body; // Get the name from the request body
+        const { name } = req.body;
         const item = createItem(name); // Create a new item and add it to the store
         res.status(201).json(item); // Return the item
     } catch (error) {
