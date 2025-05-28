@@ -1,5 +1,4 @@
 import { Item } from '../types/item';
-import { validateItemName } from './guards/validateItemName';
 
 export class Store {
   private items: Item[] = [];
@@ -9,11 +8,9 @@ export class Store {
   }
 
   public addItem(name: string): Item {
-    const validatedName = validateItemName(name); // Validate the name of the item
-
     const newItem: Item = { // Create a new item with the validated name and a random id
       id: crypto.randomUUID(),
-      name: validatedName
+      name: name
     };
 
     this.items.push(newItem); // Add the new item to the items array
