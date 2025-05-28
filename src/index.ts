@@ -1,4 +1,5 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
+import router from './router';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -7,9 +8,8 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 
 // Routes
-app.get('/', (req: Request, res: Response) => {
-  res.json({ message: 'Welcome to the API' });
-});
+app.use('/', router);
+
 
 // Start server
 app.listen(port, () => {
