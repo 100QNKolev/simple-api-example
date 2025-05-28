@@ -68,7 +68,12 @@ Creates a new item.
 npm install
 ```
 
-2. Start the server:
+2. Build the project:
+```bash
+npm run build
+```
+
+3. Start the server:
 ```bash
 npm start
 ```
