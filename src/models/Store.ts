@@ -7,6 +7,10 @@ export class Store {
     return [...this.items]; // Return a copy to prevent direct mutation
   }
 
+  public getItemById(id: string): Item | undefined {
+    return this.items.find(item => item.id === id); // Return the item if it exists, otherwise return undefined
+  }
+
   public addItem(name: string): Item {
     const newItem: Item = { // Create a new item with the validated name and a random id
       id: crypto.randomUUID(),
