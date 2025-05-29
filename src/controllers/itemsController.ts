@@ -1,6 +1,6 @@
 import express from "express";
 import { Request, Response } from "express";
-import { getItems, createItem, getItemById, updateItem } from '../services/itemService';
+import { getItems, createItem, getItemById, updateItem, deleteItem } from '../services/itemService';
 
 const router = express.Router();
 
@@ -21,6 +21,12 @@ router.put("/items/:id", async (req: Request, res: Response) => {
     const { name } = req.body;
     const updatedItem = updateItem(req.params.id, name); // Update item with new name
     res.status(200).json(updatedItem);
+});
+
+// Delete item by ID
+router.delete("/items/:id", async (req: Request, res: Response) => {
+    deleteItem(req.params.id); // Delete item by ID
+    res.status(204).send(); // Return 204 No Content on successful deletion
 });
 
 // Create a new item and add it to the store
