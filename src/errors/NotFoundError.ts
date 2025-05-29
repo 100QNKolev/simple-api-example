@@ -1,7 +1,7 @@
 import { BaseError } from '../models/BaseError';
 
-export class ValidationError extends BaseError {
+export class NotFoundError extends BaseError {
     constructor(message: string) {
-        super(message, 400);
+        super(message, 404);
     }
 } 
