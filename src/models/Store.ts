@@ -22,6 +22,16 @@ export class Store {
     return { ...updatedItem }; // Return a copy to prevent direct mutation
   }
 
+  public deleteItem(id: string): boolean {
+    const itemIndex = this.items.findIndex(item => item.id === id); // Find the index of the item
+    if (itemIndex === -1) {
+      return false; // Return false if the item is not found
+    }
+
+    this.items.splice(itemIndex, 1); // Remove the item from the array
+    return true; // Return true if the item was deleted
+  }
+
   public addItem(name: string): Item {
     const newItem: Item = { // Create a new item with the validated name and a random id
       id: crypto.randomUUID(),
