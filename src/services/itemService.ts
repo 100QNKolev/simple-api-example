@@ -13,7 +13,7 @@ export const getItems = (): Item[] => {
 export const getItemById = (id: string): Item => {
     const item = store.getItemById(id); // Get item by ID from the store
     if (!item) {
-        throw new ValidationError(`Item with id ${id} not found`); // Throw an error if the item is not found
+        throw new ValidationError(`Item with the specified id not found`); // Throw an error if the item is not found
     }
     return item;
 };
