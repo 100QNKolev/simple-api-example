@@ -1,6 +1,7 @@
 import express from "express";
 import { Request, Response } from "express";
 import { getItems, createItem, getItemById, updateItem, deleteItem } from '../services/itemService';
+import { validateItemNameMiddleware } from '../middlewares/validateItemNameMiddleware';
 
 const router = express.Router();
 
@@ -17,7 +18,7 @@ router.get("/items/:id", async (req: Request, res: Response) => {
 });
 
 // Update item by ID
-router.put("/items/:id", async (req: Request, res: Response) => {
+router.put("/items/:id", validateItemNameMiddleware, async (req: Request, res: Response) => {
     const { name } = req.body;
     const updatedItem = updateItem(req.params.id, name); // Update item with new name
     res.status(200).json(updatedItem);
@@ -30,7 +31,7 @@ router.delete("/items/:id", async (req: Request, res: Response) => {
 });
 
 // Create a new item and add it to the store
-router.post("/items", async (req: Request, res: Response) => {
+router.post("/items", validateItemNameMiddleware, async (req: Request, res: Response) => {
     const { name } = req.body;
     const item = createItem(name); // Create a new item and add it to the store
     res.status(201).json(item);
