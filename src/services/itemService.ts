@@ -1,8 +1,7 @@
 import store from "../models/Store";
-
 import { Item } from "../types/item";
 import { validateItemName } from "../validators/validateItemName";
-import { ValidationError } from "../errors/ValidationError";
+import { NotFoundError } from "../errors/NotFoundError";
 
 // Get all items from the store
 export const getItems = (): Item[] => {
@@ -13,7 +12,7 @@ export const getItems = (): Item[] => {
 export const getItemById = (id: string): Item => {
     const item = store.getItemById(id); // Get item by ID from the store
     if (!item) {
-        throw new ValidationError(`Item with the specified id not found`); // Throw an error if the item is not found
+        throw new NotFoundError(`Item with id ${id} not found`); // Throw an error if the item is not found
     }
     return item;
 };
@@ -23,7 +22,7 @@ export const updateItem = (id: string, name: string): Item => {
     const validatedName = validateItemName(name); // Validate the new name
     const updatedItem = store.updateItem(id, validatedName);
     if (!updatedItem) {
-        throw new ValidationError(`Item with the specified id not found`); // Throw an error if the item is not found
+        throw new NotFoundError(`Item with id ${id} not found`); // Throw an error if the item is not found
     }
     return updatedItem;
 };
