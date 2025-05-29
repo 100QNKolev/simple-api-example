@@ -18,6 +18,16 @@ export const getItemById = (id: string): Item => {
     return item;
 };
 
+// Update item by ID
+export const updateItem = (id: string, name: string): Item => {
+    const validatedName = validateItemName(name); // Validate the new name
+    const updatedItem = store.updateItem(id, validatedName);
+    if (!updatedItem) {
+        throw new ValidationError(`Item with the specified id not found`); // Throw an error if the item is not found
+    }
+    return updatedItem;
+};
+
 // Create a new item and add it to the store
 export const createItem = (name: string): Item => {
     const validatedName = validateItemName(name); // Validate the name of the item
