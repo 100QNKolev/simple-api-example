@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { ValidationError } from '../errors/ValidationError';
+import { BaseError } from '../models/BaseError';
 
 export const errorHandler = (
   err: Error,
@@ -11,9 +11,9 @@ export const errorHandler = (
   // Log the error for debugging purposes
   console.error('Error:', err.message);
 
-  // Handle ValidationError differently
-  if (err instanceof ValidationError) {
-    return res.status(400).json({
+  // Handle known error types
+  if (err instanceof BaseError) {
+    return res.status(err.statusCode).json({
       status: 'error',
       message: err.message
     });
@@ -22,6 +22,6 @@ export const errorHandler = (
   // Generic error handling for other types of errors
   res.status(500).json({
     status: 'error',
-    message: 'An unexpected error occurred'
+    message: 'An unexpected error occurred',
   });
 }; 
