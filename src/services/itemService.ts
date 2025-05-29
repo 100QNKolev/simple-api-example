@@ -12,7 +12,7 @@ export const getItems = (): Item[] => {
 export const getItemById = (id: string): Item => {
     const item = store.getItemById(id); // Get item by ID from the store
     if (!item) {
-        throw new NotFoundError(`Item with id ${id} not found`); // Throw an error if the item is not found
+        throw new NotFoundError(`Item with the specified id not found`); // Throw an error if the item is not found
     }
     return item;
 };
@@ -22,9 +22,17 @@ export const updateItem = (id: string, name: string): Item => {
     const validatedName = validateItemName(name); // Validate the new name
     const updatedItem = store.updateItem(id, validatedName);
     if (!updatedItem) {
-        throw new NotFoundError(`Item with id ${id} not found`); // Throw an error if the item is not found
+        throw new NotFoundError(`Item with the specified id not found`); // Throw an error if the item is not found
     }
     return updatedItem;
+};
+
+// Delete item by ID
+export const deleteItem = (id: string): void => {
+    const isDeleted = store.deleteItem(id);
+    if (!isDeleted) {
+        throw new NotFoundError(`Item with the specified id not found`); // Throw an error if the item is not found
+    }
 };
 
 // Create a new item and add it to the store
